@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Daftar Laporan{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-3xl font-bold text-slate-900">Daftar Laporan</h1>
+
+  <a href="{% url 'laporan_create' %}"
+     class="px-5 py-3 rounded-xl text-white font-semibold
+            bg-blue-700 hover:bg-blue-800 transition shadow">
+    + Tambah
+  </a>
+</div>
+
+<div class="space-y-4">
+  {% for x in items %}
+    <div class="bg-white rounded-2xl shadow border border-slate-200 overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-4">
+
+        <!-- KIRI -->
+        <div class="md:col-span-3 p-5">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xl font-bold text-slate-900">{{ x.judul }}</div>
+              <div class="text-sm text-slate-600 mt-1 line-clamp-2">
+                {{ x.kegiatan|default:"(Belum ada deskripsi kegiatan)" }}
+              </div>
+            </div>
+
+            <div class="flex gap-2 shrink-0">
+              <a class="px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 transition"
+                 href="{% url 'laporan_detail' x.pk %}">Detail</a>
+              <a class="px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 transition"
+                 href="{% url 'laporan_update' x.pk %}">Edit</a>
+              <a class="px-3 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
+                 href="{% url 'laporan_delete' x.pk %}">Hapus</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- KANAN -->
+        <div class="md:col-span-1 bg-slate-50 border-t md:border-t-0 md:border-l border-slate-200 p-5">
+          <div class="text-sm font-semibold text-slate-700 mb-3">Tanggal</div>
+
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="text-lg font-bold text-slate-900">
+              {{ x.tanggal }}
+            </div>
+            <div class="mt-2 text-sm text-slate-600 space-y-1">
+              <div><span class="font-semibold">Hari:</span> {{ x.hari }}</div>
+              <div><span class="font-semibold">Tahun:</span> {{ x.tahun }}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  {% empty %}
+    <div class="bg-white rounded-2xl shadow border border-slate-200 p-6">
+      Belum ada laporan Seng. Klik <b>+ Tambah</b> yaaaa.
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

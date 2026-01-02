@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Hapus Laporan{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+  <h1 class="text-3xl font-bold mb-6">Hapus Laporan</h1>
+
+  <div class="bg-white rounded-2xl shadow border border-slate-200 p-6">
+    <p class="text-slate-700">
+      Yakin mau hapus laporan: <b>{{ object.judul }}</b>?
+    </p>
+
+    <div class="mt-6 flex gap-3">
+      <form method="post">
+        {% csrf_token %}
+        <button class="px-5 py-3 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700 transition shadow">
+          Hapus
+        </button>
+      </form>
+
+      <a href="{% url 'laporan_detail' object.pk %}"
+         class="px-5 py-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 transition">
+        Batal
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
